@@ -1,0 +1,24 @@
+<div class="chat-container">
+    <h1 class="title">Ask OrchestrAI</h1>
+  
+    <div *ngFor="let msg of messages" class="message" [ngClass]="{'user': msg.role === 'user', 'ai': msg.role === 'ai'}">
+      <div class="text">{{ msg.text }}</div>
+      <div *ngIf="msg.images.length > 0" class="images">
+        <img *ngFor="let img of msg.images" [src]="img" alt="Retrieved image">
+      </div>
+    </div>
+  
+    <div class="input-area">
+      <input 
+        [(ngModel)]="userInput" 
+        type="text" 
+        placeholder="Ask a question..." 
+        [disabled]="loading"
+        (keyup.enter)="askQuestion()"
+      />
+      <button (click)="askQuestion()" [disabled]="loading">Ask</button>
+      <button (click)="cancelRequest()" [disabled]="!loading">Cancel</button>
+      <button (click)="clearChat()">Clear Chat</button>
+    </div>
+  </div>
+  
